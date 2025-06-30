@@ -1,0 +1,33 @@
+# ─── Maven ────────────────────────────────────────
+/target/
+build/
+*.log
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+mvnw
+mvnw.cmd
+
+# ─── IntelliJ IDEA ────────────────────────────────
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ─── Spring Tool Suite (STS) ──────────────────────
+.apt_generated
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+# ─── VS Code (si lo llegás a usar) ────────────────
+.vscode/
+
+# ─── Sistema ──────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ─── Otros ────────────────────────────────────────
+HELP.md
