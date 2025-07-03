@@ -1,5 +1,6 @@
 package com.luciano.taskmanager.controller;
 
+import com.luciano.taskmanager.exception.TaskNotFoundException;
 import com.luciano.taskmanager.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // Podemos agregar más manejadores para otras excepciones (como Validations, etc.)
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<Object> handleTaskNotFound(TaskNotFoundException ex) {
+        Map<String, Object> error = new HashMap<>();
+        error.put("timestamp", LocalDateTime.now());
+        error.put("error", "Usuario no encontrado");
+        error.put("message", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
 }
 

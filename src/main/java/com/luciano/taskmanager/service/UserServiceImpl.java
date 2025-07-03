@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService{
         return userRepository.save(user);
     }
 
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
@@ -39,8 +40,20 @@ public class UserServiceImpl implements UserService{
         return userRepository.findAll();
     }
 
+
+    @Override
+    public User update(User user) {
+        userRepository.findById(user.getId())
+                .orElseThrow(() -> new UserNotFoundException(user.getId()));
+        return userRepository.save(user);
+    }
+
     @Override
     public void deleteById(Long id) {
+        // Validar antes de borrar
+        if(!userRepository.existsById(id)){
+            throw new UserNotFoundException(id);
+        }
         userRepository.deleteById(id);
     }
 }

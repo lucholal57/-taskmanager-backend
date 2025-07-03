@@ -46,6 +46,21 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    // Actualizar usuario por ID
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User updateUser){
+        User existinUser = userService.findById(id);
+
+        // Actualizamos los campos
+        existinUser.setName(updateUser.getName());
+        existinUser.setEmail(updateUser.getEmail());
+        existinUser.setPassword(updateUser.getPassword());
+
+        User saveUser = userService.save(existinUser);
+
+        return ResponseEntity.ok(saveUser);
+    }
+
     // Eliminar usuario por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {

@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface UserService {
 
-
     User save(User user); // Guardar nuevo usuario
+
+    User update(User user); // Actualiza usuario
 
     User findById(Long id); // Buscar por ID
 
