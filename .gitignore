@@ -1,12 +1,17 @@
 # ─── Maven ────────────────────────────────────────
-/target/
-build/
+/backend/target/
+/backend/build/
 *.log
 
 # Maven Wrapper
-.mvn/wrapper/maven-wrapper.jar
-mvnw
-mvnw.cmd
+/backend/.mvn/wrapper/maven-wrapper.jar
+/backend/mvnw
+/backend/mvnw.cmd
+
+# ─── Angular ──────────────────────────────────────
+/frontend/dist/
+/frontend/node_modules/
+/frontend/.angular/cache
 
 # ─── IntelliJ IDEA ────────────────────────────────
 .idea/
@@ -14,15 +19,7 @@ mvnw.cmd
 *.ipr
 *.iws
 
-# ─── Spring Tool Suite (STS) ──────────────────────
-.apt_generated
-.factorypath
-.project
-.settings/
-.springBeans
-.sts4-cache
-
-# ─── VS Code (si lo llegás a usar) ────────────────
+# ─── VS Code ──────────────────────────────────────
 .vscode/
 
 # ─── Sistema ──────────────────────────────────────
@@ -31,3 +28,4 @@ Thumbs.db
 
 # ─── Otros ────────────────────────────────────────
 HELP.md
+
