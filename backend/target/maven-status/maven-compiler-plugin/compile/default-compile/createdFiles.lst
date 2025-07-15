@@ -1,0 +1,8 @@
+com/luciano/taskmanager/repository/UserRepository.class
+com/luciano/taskmanager/controller/UserController.class
+com/luciano/taskmanager/controller/GlobalExceptionHandler.class
+com/luciano/taskmanager/service/UserService.class
+com/luciano/taskmanager/TaskmanagerApplication.class
+com/luciano/taskmanager/exception/UserNotFoundException.class
+com/luciano/taskmanager/service/userServiceImpl.class
+com/luciano/taskmanager/model/User.class

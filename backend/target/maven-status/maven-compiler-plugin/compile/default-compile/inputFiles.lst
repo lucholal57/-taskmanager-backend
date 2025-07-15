@@ -1,0 +1,8 @@
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/controller/GlobalExceptionHandler.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/service/UserService.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/service/userServiceImpl.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/exception/UserNotFoundException.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/controller/UserController.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/repository/UserRepository.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/TaskmanagerApplication.java
+/home/luciano/PROYECTOS PERSONALES PROGRAMACION/taskmanager/src/main/java/com/luciano/taskmanager/model/User.java
