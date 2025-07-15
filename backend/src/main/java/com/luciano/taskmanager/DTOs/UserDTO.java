@@ -1,4 +1,4 @@
-package com.luciano.taskmanager.model;
+package com.luciano.taskmanager.DTOs;
 
 public class UserDTO {
 

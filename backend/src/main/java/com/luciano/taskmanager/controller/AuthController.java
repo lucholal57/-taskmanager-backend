@@ -1,8 +1,9 @@
 package com.luciano.taskmanager.controller;
 
 import com.luciano.taskmanager.config.JwtUtil;
+import com.luciano.taskmanager.DTOs.LoginResponseDTO;
 import com.luciano.taskmanager.model.User;
-import com.luciano.taskmanager.model.UserDTO;
+import com.luciano.taskmanager.DTOs.UserDTO;
 import com.luciano.taskmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class AuthController {
             );
 
             String token = jwtUtil.generateToken(loginRequest.getEmail());
-            return ResponseEntity.ok().body("Bearer " + token);
+            return ResponseEntity.ok(new LoginResponseDTO("Bearer " + token));
 
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Credenciales inválidas");
