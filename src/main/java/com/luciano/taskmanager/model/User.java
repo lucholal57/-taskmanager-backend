@@ -13,7 +13,7 @@ public class User {
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
-    private String name;
+    private String username;
 
     @Email(message = "Debe ser un email valido")
     @Column(unique = true)
@@ -22,15 +22,19 @@ public class User {
     @NotBlank(message = "La contraseña es obligatoria")
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     // Constructor vacio requerido por JPA
     public User() {
     }
 
-    public User(String name, Long id, String email, String password) {
-        this.name = name;
+    public User(Long id, String username, String email, String password, Role role) {
         this.id = id;
+        this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -41,12 +45,12 @@ public class User {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -63,5 +67,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

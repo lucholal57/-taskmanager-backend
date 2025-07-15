@@ -2,6 +2,7 @@ package com.luciano.taskmanager.service;
 
 import com.luciano.taskmanager.exception.TaskNotFoundException;
 import com.luciano.taskmanager.exception.UserNotFoundException;
+import com.luciano.taskmanager.model.Role;
 import com.luciano.taskmanager.model.Task;
 import com.luciano.taskmanager.model.User;
 import com.luciano.taskmanager.repository.TaskRepository;
@@ -30,7 +31,7 @@ public class TaskServiceImplTest {
     @Test
     void getTaskById_existingId_retunrsTask(){
         // Given
-        User user = new User("luciano",1L,"luciano@email.com","admin");
+        User user = new User(1L,"luciano","luciano@email.com","admin",Role.ROLE_ADMIN);
         Task task =  new Task(1L,"tarea1",null,"descripcion tarea1",user);
 
         // Mock
@@ -59,7 +60,7 @@ public class TaskServiceImplTest {
     @Test
     void getTaskByUserId_existingUserId_returnsTask(){
         // Given
-        User user =  new User("Mateo",2L,"mateo@email.com","1234");
+        User user =  new User(2L,"Mateo","mateo@email.com","1234",Role.ROLE_ADMIN);
         Task task =  new Task(2L,"tarea2",true,"descripcion tarea2",user);
 
         // Mock
@@ -70,7 +71,7 @@ public class TaskServiceImplTest {
 
         // Then
         assertNotNull(result);
-        assertEquals("Mateo",result.get(0).getUser().getName());
+        assertEquals("Mateo",result.get(0).getUser().getUsername());
         assertEquals("tarea2",result.get(0).getTittle());
         assertEquals("mateo@email.com",result.get(0).getUser().getEmail());
         assertEquals("descripcion tarea2",result.get(0).getDescription());
@@ -97,7 +98,7 @@ public class TaskServiceImplTest {
     void saveTask_validTask_returnsSaveTask(){
 
         // Given
-        User user = new User("luciano",1L,"luciano@email.com","admin");
+        User user = new User(1L,"luciano","luciano@email.com","admin",Role.ROLE_ADMIN);
         Task task =  new Task(1L,"tarea1",null,"descripcion tarea1",user);
 
         // Mock
@@ -108,7 +109,7 @@ public class TaskServiceImplTest {
 
         // Then
         assertNotNull(result);
-        assertEquals("luciano",result.getUser().getName());
+        assertEquals("luciano",result.getUser().getUsername());
         assertEquals("tarea1",result.getTittle());
         assertEquals("luciano@email.com",result.getUser().getEmail());
         assertEquals("descripcion tarea1",result.getDescription());
@@ -119,7 +120,7 @@ public class TaskServiceImplTest {
     @Test
     void getAllTask_returnsListTaks(){
         // Given
-        User user =  new User("Mateo",2L,"mateo@email.com","1234");
+        User user =  new User(2L,"Mateo","mateo@email.com","1234", Role.ROLE_ADMIN);
         List<Task> tasks = List.of(
                 new Task(1L, "Tarea1", false, "desc1", null),
                 new Task(2L, "Tarea2", true, "desc2", user)
@@ -156,7 +157,7 @@ public class TaskServiceImplTest {
     void updateTask_existingId_updatesAndReturnsTask(){
         // Given
         Long taskId = 1L;
-        User user = new User("Luciano", 1L, "luciano@email.com", "admin");
+        User user = new User(1L,"Luciano",  "luciano@email.com", "admin",Role.ROLE_ADMIN);
 
         Task existingTask = new Task(taskId, "Tarea vieja", false, "Desc vieja", user);
 

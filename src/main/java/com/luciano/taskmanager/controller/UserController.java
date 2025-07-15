@@ -52,7 +52,7 @@ public class UserController {
         User existinUser = userService.findById(id);
 
         // Actualizamos los campos
-        existinUser.setName(updateUser.getName());
+        existinUser.setUsername(updateUser.getUsername());
         existinUser.setEmail(updateUser.getEmail());
         existinUser.setPassword(updateUser.getPassword());
 

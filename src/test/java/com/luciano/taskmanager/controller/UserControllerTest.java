@@ -1,10 +1,12 @@
 package com.luciano.taskmanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.luciano.taskmanager.model.Role;
 import com.luciano.taskmanager.model.User;
 import com.luciano.taskmanager.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -21,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
+@AutoConfigureMockMvc(addFilters = false) // 🔥 Desactiva filtros de seguridad
 public class UserControllerTest {
 
     @Autowired
@@ -36,7 +39,7 @@ public class UserControllerTest {
     @Test
     void createUser_returnsCreatedUser() throws Exception {
         // Given
-        User user = new User("Luciano", 1L, "luciano@email.com", "admin");
+        User user = new User(1L, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN);
         //  Este es el User que queremos enviar (simula payload JSON)
 
         // Mock
@@ -59,7 +62,7 @@ public class UserControllerTest {
     void getUSerById_exisntingId_returnsUser() throws Exception {
         // Given
         Long userId = 1L;
-        User user = new User("Luciano", userId, "luciano@email.com", "admin");
+        User user = new User(userId, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN);
 
         // Mock
         when(userService.findById(userId)).thenReturn(user);
@@ -67,19 +70,14 @@ public class UserControllerTest {
         // When
         mockMvc.perform(get("/api/users/{id}", userId))
                 // Then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Luciano"))
-                .andExpect(jsonPath("$.email").value("luciano@email.com"));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.name").value("Luciano")).andExpect(jsonPath("$.email").value("luciano@email.com"));
     }
 
     // Test obtener todos los usuarios GET
     @Test
     void getAllUser_returnsListOfUsers() throws Exception {
         // Given
-        List<User> users = Arrays.asList(
-                new User("Luciano", 1L, "luciano@email.com", "admin"),
-                new User("Mateo", 2L, "mateo@email.com", "user")
-        );
+        List<User> users = Arrays.asList(new User(1L, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN), new User(2L, "Mateo", "mateo@email.com", "user", Role.ROLE_ADMIN));
 
         // Mock
         when(userService.findAll()).thenReturn(users);
@@ -87,10 +85,7 @@ public class UserControllerTest {
         // When
         mockMvc.perform(get("/api/users"))
                 // Then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(users.size()))
-                .andExpect(jsonPath("$[0].name").value("Luciano"))
-                .andExpect(jsonPath("$[1].name").value("Mateo"));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.size()").value(users.size())).andExpect(jsonPath("$[0].name").value("Luciano")).andExpect(jsonPath("$[1].name").value("Mateo"));
 
     }
 
@@ -99,27 +94,23 @@ public class UserControllerTest {
     void updateUser_exisntinId_returnsUpdateUser() throws Exception {
         // Given
         Long userId = 1L;
-        User updatedUser = new User("Mateo", userId, "mateo@email.com", "1234");
+        User updatedUser = new User(userId, "Mateo", "mateo@email.com", "1234", Role.ROLE_ADMIN);
 
         // Mock
         when(userService.findById(userId)).thenReturn(updatedUser);
         when(userService.save(any(User.class))).thenReturn(updatedUser);
 
         // When
-        mockMvc.perform(put("/api/users/{id}", userId)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedUser)))
+        mockMvc.perform(put("/api/users/{id}", userId).contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(updatedUser)))
                 // Then
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Mateo"))
-                .andExpect(jsonPath("$.email").value("mateo@email.com"));
+                .andExpect(status().isOk()).andExpect(jsonPath("$.name").value("Mateo")).andExpect(jsonPath("$.email").value("mateo@email.com"));
 
     }
 
 
     // Test eliminar usuario por ID DELETE
     @Test
-    void deleteUser_existinId_returnsNoContent() throws Exception{
+    void deleteUser_existinId_returnsNoContent() throws Exception {
         // Given
         Long userId = 1L;
 
@@ -127,7 +118,7 @@ public class UserControllerTest {
         doNothing().when(userService).deleteById(userId);
 
         // When
-        mockMvc.perform(delete("/api/users/{id}",userId))
+        mockMvc.perform(delete("/api/users/{id}", userId))
                 // Then
                 .andExpect(status().isNoContent());
     }

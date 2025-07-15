@@ -3,6 +3,7 @@ package com.luciano.taskmanager.service;
 import com.luciano.taskmanager.exception.UserNotFoundException;
 import com.luciano.taskmanager.model.User;
 import com.luciano.taskmanager.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,13 +13,19 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+
     // Constructor con @Autowired implícito desde Spring 4.3+
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public User save(User user) {
+        // Encriptar password antes de guardar
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

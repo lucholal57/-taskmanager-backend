@@ -1,10 +1,12 @@
 package com.luciano.taskmanager.service;
 
 import com.luciano.taskmanager.exception.UserNotFoundException;
+import com.luciano.taskmanager.model.Role;
 import com.luciano.taskmanager.model.User;
 import com.luciano.taskmanager.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,11 +18,13 @@ public class UserServiceImplTest {
 
     private UserRepository userRepository;
     private UserServiceImpl userService;
+    private PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp(){
         userRepository = mock(UserRepository.class);
-        userService = new UserServiceImpl(userRepository);
+        passwordEncoder = mock(PasswordEncoder.class);
+        userService = new UserServiceImpl(userRepository,passwordEncoder);
     }
 
     // Test busqueda usuario por id OK
@@ -28,7 +32,7 @@ public class UserServiceImplTest {
     void getUserById_existingId_returnsUser(){
         // Prepara el usuario para simular un test
         // Given
-        User user = new User("Luciano",1L,"luciano@email.com","admin");
+        User user = new User(1L,"Luciano","luciano@email.com","admin", Role.ROLE_ADMIN);
 
         // Busqueda para que lo realice pero no en la db sino desde el objeto creado arriba
         // Mock le dice que devuelva el usuario creado si se pide por el id 1L
@@ -41,7 +45,7 @@ public class UserServiceImplTest {
         // Verificamos el resultado
         // Then
         assertNotNull(result);
-        assertEquals("Luciano", result.getName());
+        assertEquals("Luciano", result.getUsername());
         assertEquals("luciano@email.com", result.getEmail());
     }
 
@@ -61,7 +65,7 @@ public class UserServiceImplTest {
     @Test
     void getUserByEmail_existingEmail_returnsUser(){
         // Given
-        User user =  new User("Luciano",1L,"luciano@email.com","admin");
+        User user =  new User(1L,"Luciano","luciano@email.com","admin",Role.ROLE_ADMIN);
 
         // Mock
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
@@ -71,7 +75,7 @@ public class UserServiceImplTest {
 
         // Then
         assertNotNull(result);
-        assertEquals("Luciano",result.getName());
+        assertEquals("Luciano",result.getUsername());
     }
 
     // Test busqueda de usuario por email NO OK
@@ -88,7 +92,7 @@ public class UserServiceImplTest {
     @Test
     void saveUser_validUser_returnsSavedUser() {
         // Given
-        User user = new User("Mateo",null,"mateo@email.com","1234");
+        User user = new User(null,"Mateo","mateo@email.com","1234",Role.ROLE_ADMIN);
 
         // Mock
         when(userRepository.save(user)).thenReturn(user);
@@ -98,7 +102,7 @@ public class UserServiceImplTest {
 
         // Then
         assertNotNull(result);
-        assertEquals("Mateo",result.getName());
+        assertEquals("Mateo",result.getUsername());
         assertEquals("mateo@email.com",result.getEmail());
     }
 
@@ -107,8 +111,8 @@ public class UserServiceImplTest {
     void getAllUsers_retunrslistOfUsers(){
         // Given
         List<User> users = List.of(
-                new User("Luciano",1L,"luciano@email.com","admin"),
-                new User("Agustin",2L,"agustin@email.com","1234")
+                new User(1L,"Luciano","luciano@email.com","admin",Role.ROLE_ADMIN),
+                new User(2L,"Agustin","agustin@email.com","1234",Role.ROLE_ADMIN)
         );
 
         // Mock
@@ -120,8 +124,8 @@ public class UserServiceImplTest {
         // Then
         assertNotNull(result);
         assertEquals(2,result.size());
-        assertEquals("Luciano",result.get(0).getName());
-        assertEquals("Agustin",result.get(1).getName());
+        assertEquals("Luciano",result.get(0).getUsername());
+        assertEquals("Agustin",result.get(1).getUsername());
     }
 
     // Test para actualizar usuario OK
@@ -129,9 +133,9 @@ public class UserServiceImplTest {
     void updateUser_existingId_updatesAndReturnsUser(){
         // Given
         Long userId = 1L;
-        User existingUser = new User("Luciano", 1L, "luciano@email.com", "admin");
+        User existingUser = new User( 1L,"Luciano", "luciano@email.com", "admin",Role.ROLE_ADMIN);
 
-        User updateUser = new User("Mateo", 1L, "mateo@email.com", "1234");
+        User updateUser = new User( 1L,"Mateo", "mateo@email.com", "1234",Role.ROLE_ADMIN);
 
         // Mock
         when(userRepository.findById(userId)).thenReturn(Optional.of(existingUser));
@@ -143,7 +147,7 @@ public class UserServiceImplTest {
 
         // Then
         assertNotNull(result);
-        assertEquals("Mateo", result.getName());
+        assertEquals("Mateo", result.getUsername());
         assertEquals("mateo@email.com", result.getEmail());
     }
 
