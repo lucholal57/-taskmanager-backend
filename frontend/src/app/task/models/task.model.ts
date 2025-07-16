@@ -1,0 +1,10 @@
+import { User } from "../../user/models/user";
+
+export interface Task {
+    id: string;
+    tittle: string;
+    description: string;
+    completed: boolean;
+    userId: number;
+
+};

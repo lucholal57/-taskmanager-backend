@@ -11,7 +11,7 @@ import { MaterialModule } from '../../../material.module';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Auth } from '../../../auth/model/auth.model';
+import { Auth } from '../../models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +37,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-     console.log('📡 onSubmit llamado');
+    console.log('📡 onSubmit llamado');
     if (!this.loginForm.valid) {
       console.log('Login invalido:', this.loginForm.value);
       return;
