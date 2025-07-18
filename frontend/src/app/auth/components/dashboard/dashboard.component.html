@@ -1,14 +1,41 @@
-<div class="dashboard" *ngIf="user; else loading">
-  <h1>Bienvenido , {{ user.username }}</h1>
-  <p>Email: {{ user.email }}</p>
-  <p>Rol: {{ user.role}}</p>
+<div class="p-6">
+  <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">
+    Bienvenido, {{ user.username }}
+  </h1>
 
-  <button (click)="logout()"> Cerrar sesion</button>
+  
+ <div class="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div
+      class="p-6 transition bg-white rounded-lg shadow dark:bg-gray-800 hover:shadow-lg"
+    >
+      <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
+        Total de tareas
+      </h2>
+      <p class="mt-2 text-3xl font-bold text-blue-600">
+        {{ totalTasks }}
+      </p>
+    </div>
+
+    <div
+      class="p-6 transition bg-white rounded-lg shadow dark:bg-gray-800 hover:shadow-lg"
+    >
+      <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
+        Completadas
+      </h2>
+      <p class="mt-2 text-3xl font-bold text-green-600">
+        {{ completedTasks }}
+      </p>
+    </div>
+
+    <div
+      class="p-6 transition bg-white rounded-lg shadow dark:bg-gray-800 hover:shadow-lg"
+    >
+      <h2 class="text-xl font-semibold text-gray-700 dark:text-gray-200">
+        Pendientes
+      </h2>
+      <p class="mt-2 text-3xl font-bold text-red-600">
+        {{ pendingTasks }}
+      </p>
+    </div>
+  </div>
 </div>
-
-<ng-template #loading>
-  <p>Cargando datos del usuario...</p>
-  <p *ngIf="errorMessage" class="error"> {{ errorMessage }}</p>
-</ng-template>
-
-<app-task-list [userId]="user.id"></app-task-list>

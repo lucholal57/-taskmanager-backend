@@ -7,16 +7,15 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { MaterialModule } from '../../../material.module';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Auth } from '../../models/auth.model';
+import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MaterialModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,11 +23,13 @@ import { Auth } from '../../models/auth.model';
 
 export class LoginComponent {
   loginForm: FormGroup;
+  isLoading = false;
+
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private alertService: AlertService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,6 +38,7 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     console.log('📡 onSubmit llamado');
     if (!this.loginForm.valid) {
       console.log('Login invalido:', this.loginForm.value);
@@ -47,18 +49,17 @@ export class LoginComponent {
 
     this.authService.login(loginData).subscribe({
       next: (res: Auth.LoginResponse) => {
-        console.log('Login exitoso:', res);
-        this.snackBar.open('!Binvenido!', 'Cerrar', {
-          duration: 3000
-        });
+        this.alertService.success('Inicio de sesión exitoso');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.error('Error en el login:', err);
-        this.snackBar.open('Error al iniciar sesión, Verifica tus credenciales.', 'Cerrar', {
-          duration: 3000
-        });
-      }
+        this.alertService.error('Error al iniciar sesión. Por favor, verifica tus credenciales.');
+      },
+      complete: () => {
+        this.isLoading = false;
+        console.log('Proceso de login completado');
+      },
 
     });
   }

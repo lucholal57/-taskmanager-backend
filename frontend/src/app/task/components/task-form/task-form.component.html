@@ -1,0 +1,54 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-lg p-6 bg-white rounded shadow-md">
+        <h1 class="text-2xl font-bold text-center mb4">{{ isEditMode? 'Editar Tarea' : 'Nueva Tarea' }}</h1>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <!-- Campo para el titulo-->
+            <div class="mb-4">
+                <label for="tittle" class="block mb-1 text-sm font-medium">Titulo</label>
+                <input id="tittle" type="text" formControlName="tittle" placeholder="Titulo de la tarea"
+                    class="w-full px-3 border rounded py2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    [class.border-red-500]="form.get('tittle')?.invalid && form.get('tittle')?.touched">
+
+                <div *ngIf="form.get('tittle')?.invalid && form.get('tittle')?.touched"
+                    class="mt-1 text-sm text-red-500"> El titulo es obligatorio y debe terner al menos 3 caracteres.
+                    >
+                </div>
+
+            </div>
+
+            <!-- Campo para la descripcion -->
+            <div class="mb-4">
+                <label for="description" class="block mb-1 text-sm font-medium">Descripcion</label>
+                <textarea id="description" formControlName="description" placeholder="Descripcion de la tarea"
+                    class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    rows="3"></textarea>
+            </div>
+
+            <!-- Campo para el checkbox completada? -->
+            <div class="flex items-center mb4">
+                <input idd="completed" type="checkbox" formControlName="completed"
+                    class="w-4 h-4 mr-2 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                    <label for="completed" class="text-sm">¿Completada?</label>
+            </div>
+
+            <!-- Boton para guardad y cancelar -->
+             <div class="flex justify-between">
+                <button
+                type="submit"
+                class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 disabled:opacity-50"
+                [disabled]="form.invalid"
+                >
+                 {{ isEditMode ? 'Actualizar' : 'Crear' }}
+            </button>
+
+            <button 
+            type="button"
+            class="px-4 py-2 text-white bg-gray-500 rounded hover:bg-gray-600"
+            (click)="cancel()"
+            ></button>
+             </div>
+
+        </form>
+    </div>
+</div>

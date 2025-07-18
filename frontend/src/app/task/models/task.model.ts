@@ -1,7 +1,7 @@
 import { User } from "../../user/models/user";
 
 export interface Task {
-    id: string;
+    id: number;
     tittle: string;
     description: string;
     completed: boolean;
