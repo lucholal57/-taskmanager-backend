@@ -32,7 +32,7 @@ public class TaskServiceImplTest {
     void getTaskById_existingId_retunrsTask(){
         // Given
         User user = new User(1L,"luciano","luciano@email.com","admin",Role.ROLE_ADMIN);
-        Task task =  new Task(1L,"tarea1",null,"descripcion tarea1",user);
+        Task task =  new Task(1L,"tarea1",null,"descripcion tarea1",user,null);
 
         // Mock
         when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
@@ -61,7 +61,7 @@ public class TaskServiceImplTest {
     void getTaskByUserId_existingUserId_returnsTask(){
         // Given
         User user =  new User(2L,"Mateo","mateo@email.com","1234",Role.ROLE_ADMIN);
-        Task task =  new Task(2L,"tarea2",true,"descripcion tarea2",user);
+        Task task =  new Task(2L,"tarea2",true,"descripcion tarea2",user,null);
 
         // Mock
         when(taskRepository.findByUserId(2L)).thenReturn(List.of(task));
@@ -99,7 +99,7 @@ public class TaskServiceImplTest {
 
         // Given
         User user = new User(1L,"luciano","luciano@email.com","admin",Role.ROLE_ADMIN);
-        Task task =  new Task(1L,"tarea1",null,"descripcion tarea1",user);
+        Task task =  new Task(1L,"tarea1",null,"descripcion tarea1",user,null);
 
         // Mock
         when(taskRepository.save(task)).thenReturn(task);
@@ -122,8 +122,8 @@ public class TaskServiceImplTest {
         // Given
         User user =  new User(2L,"Mateo","mateo@email.com","1234", Role.ROLE_ADMIN);
         List<Task> tasks = List.of(
-                new Task(1L, "Tarea1", false, "desc1", null),
-                new Task(2L, "Tarea2", true, "desc2", user)
+                new Task(1L, "Tarea1", false, "desc1", null,null),
+                new Task(2L, "Tarea2", true, "desc2", user,null)
         );
 
         // Mock
@@ -159,9 +159,9 @@ public class TaskServiceImplTest {
         Long taskId = 1L;
         User user = new User(1L,"Luciano",  "luciano@email.com", "admin",Role.ROLE_ADMIN);
 
-        Task existingTask = new Task(taskId, "Tarea vieja", false, "Desc vieja", user);
+        Task existingTask = new Task(taskId, "Tarea vieja", false, "Desc vieja", user,null);
 
-        Task updatedTask = new Task(taskId, "Tarea nueva", true, "Desc nueva", user);
+        Task updatedTask = new Task(taskId, "Tarea nueva", true, "Desc nueva", user,null);
 
         // Mock: findById devuelve la existente
         when(taskRepository.findById(taskId)).thenReturn(Optional.of(existingTask));

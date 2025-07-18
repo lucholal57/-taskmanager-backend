@@ -44,7 +44,7 @@ public class TaskControlletTest {
         // Crear usuario
         User user = new User(1L, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN);
         // Crear Task
-        Task task = new Task(null, "Aprender Spring Boot", false, "Practicar tests", user);
+        Task task = new Task(null, "Aprender Spring Boot", false, "Practicar tests", user,null);
 
 
         // Mock
@@ -63,7 +63,7 @@ public class TaskControlletTest {
         // Given
         Long taskId = 1L;
         User user = new User(1L, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN);
-        Task task = new Task(taskId, "Leer documentación", false, "Leer sobre MockMvc", user);
+        Task task = new Task(taskId, "Leer documentación", false, "Leer sobre MockMvc", user,null);
 
         // Mock
         when(taskService.findById(taskId)).thenReturn(task);
@@ -82,7 +82,7 @@ public class TaskControlletTest {
 
         // Given
         User user = new User(1L, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN);
-        List<Task> tasks = Arrays.asList(new Task(1L, "Tarea 1", false, "Descripción 1", user), new Task(2L, "Tarea 2", true, "Descripción 2", user));
+        List<Task> tasks = Arrays.asList(new Task(1L, "Tarea 1", false, "Descripción 1", user,null), new Task(2L, "Tarea 2", true, "Descripción 2", user,null));
 
         // Mock
         when(taskService.findAll()).thenReturn(tasks);
@@ -100,7 +100,7 @@ public class TaskControlletTest {
         // Given
         Long taskId = 1L;
         User user = new User(1L, "Luciano", "luciano@email.com", "admin", Role.ROLE_ADMIN);
-        Task updatedTask = new Task(taskId, "Tarea actualizada", true, "Nueva descripción", user);
+        Task updatedTask = new Task(taskId, "Tarea actualizada", true, "Nueva descripción", user,null);
 
         // Mock
         when(taskService.findById(taskId)).thenReturn(updatedTask);

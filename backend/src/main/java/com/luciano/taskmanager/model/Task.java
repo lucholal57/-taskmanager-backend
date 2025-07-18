@@ -3,6 +3,8 @@ package com.luciano.taskmanager.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -22,15 +24,25 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
     public Task() {
     }
 
-    public Task(Long id, String tittle, Boolean completed, String description, User user) {
+    public Task(Long id, String tittle, Boolean completed,String description, User user, Date createdAt) {
         this.id = id;
         this.tittle = tittle;
-        this.completed = completed;
         this.description = description;
+        this.completed = completed;
         this.user = user;
+        this.createdAt = createdAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
     }
 
     public Long getId() {
@@ -71,5 +83,13 @@ public class Task {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 }

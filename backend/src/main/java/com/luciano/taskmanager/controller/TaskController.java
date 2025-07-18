@@ -1,5 +1,6 @@
 package com.luciano.taskmanager.controller;
 
+import com.luciano.taskmanager.DTOs.TaskDTO;
 import com.luciano.taskmanager.model.Task;
 import com.luciano.taskmanager.service.TaskService;
 import org.springframework.http.ResponseEntity;
@@ -26,15 +27,19 @@ public class TaskController {
 
     // Obtener todos los Task
     @GetMapping
-    public ResponseEntity<List<Task>> getAllTask(){
-        return ResponseEntity.ok(taskService.findAll());
+    public ResponseEntity<List<TaskDTO>> getAllTask() {
+        List<TaskDTO> taskDTOs = taskService.findAll().stream()
+                .map(TaskDTO::new) // 🔥 convierte cada Task en TaskDTO
+                .toList(); // o .collect(Collectors.toList()) en Java 8
+        return ResponseEntity.ok(taskDTOs);
     }
 
     // Obtener Task por id
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id){
+    public ResponseEntity<TaskDTO> getTaskById(@PathVariable Long id) {
         Task task = taskService.findById(id);
-        return ResponseEntity.ok(task);
+        TaskDTO taskDTO = new TaskDTO(task);
+        return ResponseEntity.ok(taskDTO);
     }
 
     // Obtener listado de Task por id de usuario
