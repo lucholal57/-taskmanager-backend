@@ -1,6 +1,6 @@
-import { NgFor } from '@angular/common';
+
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { createIcons, icons } from 'lucide';
 import { filter } from 'rxjs/operators';
 import { FormsModule } from '@angular/forms';
@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [RouterOutlet, RouterLink, RouterLinkActive, NgFor, FormsModule],
+    imports: [RouterModule,RouterOutlet, RouterLink, RouterLinkActive, FormsModule],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.css'
 })

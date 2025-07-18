@@ -39,3 +39,49 @@
     </div>
   </div>
 </div>
+
+<div class="grid grid-cols-1 gap-6 mt-8 lg:grid-cols-3">
+  <!-- Gráfico de Barras -->
+  <div class="w-full p-4 bg-white rounded-lg shadow dark:bg-gray-800">
+    <h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">
+      Tareas por Mes
+    </h2>
+    <canvas baseChart
+            class="w-full h-72"
+            [data]="barChartData"
+            [options]="chartOptions"
+            [type]="barChartType">
+    </canvas>
+  </div>
+
+  <!-- Gráfico de Doughnut -->
+  <div class="max-w-md p-4 mx-auto bg-white rounded-lg shadow dark:bg-gray-800">
+    <h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">
+      Completadas vs Pendientes
+    </h2>
+    <canvas baseChart
+            class="w-full h-64"
+            [data]="doughnutChartData"
+            [options]="chartOptions"
+            [type]="doughnutChartType">
+    </canvas>
+  </div>
+
+  <!-- Gráfico de Pie -->
+  <div class="max-w-md p-4 mx-auto bg-white rounded-lg shadow dark:bg-gray-800">
+    <h2 class="mb-2 text-lg font-semibold text-gray-700 dark:text-gray-200">
+      Tareas por Usuario
+    </h2>
+    <canvas baseChart
+            class="w-full h-64"
+            [data]="pieChartData"
+            [options]="chartOptions"
+            [type]="pieChartType">
+    </canvas>
+  </div>
+</div>
+
+
+
+
+

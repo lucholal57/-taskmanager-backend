@@ -6,5 +6,6 @@ export interface Task {
     description: string;
     completed: boolean;
     userId: number;
+    createdAt: string;
 
 };

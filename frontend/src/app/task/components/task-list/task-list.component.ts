@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Task } from '../../models/task.model';
 import { TaskService } from '../../services/task.service';
-import { NgFor, NgIf } from '@angular/common';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-task-list',
-    imports: [NgIf, NgFor],
+    standalone: true,
+    imports: [],
     templateUrl: './task-list.component.html',
     styleUrl: './task-list.component.scss'
 })

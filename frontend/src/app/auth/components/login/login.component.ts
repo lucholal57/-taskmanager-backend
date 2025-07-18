@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormBuilder,
@@ -14,7 +14,7 @@ import { AlertService } from '../../../shared/services/alert.service';
 
 @Component({
     selector: 'app-login',
-    imports: [ReactiveFormsModule, CommonModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
