@@ -7,11 +7,10 @@ import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-sidebar',
-  standalone: true,
-  imports: [RouterOutlet,RouterLink,RouterLinkActive, NgFor,FormsModule],
-  templateUrl: './sidebar.component.html',
-  styleUrl: './sidebar.component.css'
+    selector: 'app-sidebar',
+    imports: [RouterOutlet, RouterLink, RouterLinkActive, NgFor, FormsModule],
+    templateUrl: './sidebar.component.html',
+    styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent  implements AfterViewInit, OnInit {
 

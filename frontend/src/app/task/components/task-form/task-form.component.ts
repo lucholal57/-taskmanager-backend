@@ -6,11 +6,10 @@ import { Task } from '../../models/task.model';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-task-form',
-  standalone: true,
-  imports: [ReactiveFormsModule,NgIf,NgFor],
-  templateUrl: './task-form.component.html',
-  styleUrl: './task-form.component.css'
+    selector: 'app-task-form',
+    imports: [ReactiveFormsModule, NgIf, NgFor],
+    templateUrl: './task-form.component.html',
+    styleUrl: './task-form.component.css'
 })
 export class TaskFormComponent implements OnInit {
 

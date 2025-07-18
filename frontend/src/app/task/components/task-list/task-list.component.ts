@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-task-list',
-  standalone: true,
-  imports: [NgIf, NgFor],
-  templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.scss'
+    selector: 'app-task-list',
+    imports: [NgIf, NgFor],
+    templateUrl: './task-list.component.html',
+    styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent implements OnInit {
 

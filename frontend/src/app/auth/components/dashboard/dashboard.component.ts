@@ -8,11 +8,10 @@ import { TaskListComponent } from '../../../task/components/task-list/task-list.
 import { TaskService } from '../../../task/services/task.service';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [NgIf,TaskListComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+    selector: 'app-dashboard',
+    imports: [NgIf, TaskListComponent],
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
 
