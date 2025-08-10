@@ -9,20 +9,33 @@ import { environment } from '../../../environments/environments';
 })
 export class UserService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apiUrl + 'users';
 
   constructor(private http: HttpClient) { }
 
-
-  // Metodo para llamar al backend y traer solo un usuario por id para poder mostrar en el dashboard los datos viendo si es que tiene token lo traiga ya
-  // que es una ruta protegida y mostrarlo se va a buscar solo uno por el id
-  getUserById(id: number): Observable<User> {
-    return this.http.get<User>(this.apiUrl + 'users/' + id);
-  }
-
+  // Obtener todos los usuarios 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl + 'users');
+    return this.http.get<User[]>(this.apiUrl);
   }
 
+  // Obtener usuario por id
+      getUserById(id: number): Observable<User> {
+        return this.http.get<User>(`${this.apiUrl}/${id}`);
+      }
+
+  // Crear usuario
+  createUser(user: Partial<User>): Observable<User> {
+    return this.http.post<User>(this.apiUrl,user);
+  }
+
+  // Actualizar usuario por id
+  updateUser(id: number, user: Partial<User>): Observable<User>{
+    return this.http.put<User>(`${this.apiUrl}/${id}`,user);
+  }
+
+  // Eliminar un usuario
+  deleteUser(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 
 }
